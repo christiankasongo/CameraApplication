@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang=”en”>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="img/favicon.ico">
+    <title>Camera App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Main container -->
+  <div id="container">
+      <div id="camera_container">
+  	<canvas id="canvas"></canvas>
+  	<video autoplay="" playsinline="" class="hidden"></video>
+    <div id="video_overlay"></div>
+    </div>
+ 
+
+  <div id="cameraLine"></div>
+ 
+
+  <div id="cameraModal" style="display: none;">
+    <a id="cameraModal_header">Please enable Device Motion</a>
+    <br>
+    <a id="cameraModal_txt">This app requires you to enable the Device Motion event on your device.</a>
+    <button id="cameraAccept" name="confirm request" type="button" class="cameraButton">Enable</button>
+  </div>
+
+<!-- Output -->
+  <div class="output">
+    <img id="Picture" alt="User picture."> 
+  </div>
+  
+  <!-- Camer controls -->
+  <div id="camera_controls">
+  	<button id="takePhoto"></button>
+    <button id="fullscreen" name="rotate camera" type="button" aria-pressed="false"></button>
+    <button id="switchCamera" name="rotate camera" type="button" aria-pressed="false"></button>
+  	<button id="retake" name="retake photo" type="button">Retake</button>
+    <button id="savePicture" name="confirm photo" type="button"></button>
+  </div>
+</div>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
