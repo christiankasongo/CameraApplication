@@ -30,7 +30,7 @@ $('#Picture').hide();
 
 // Ask user to enable device motion to allow spirit line
 $('cameraLine').show();
-$('#cameraModal').show();
+
 
 //************************************* OPERATING SYSTEM DETECTION *****************************************
 var OperatingSystem = {
@@ -40,20 +40,21 @@ var OperatingSystem = {
 
   iOS: function() {
      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+     $("#fullscreen").hide();
   }
 };
 
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
+  video: { facingMode: (front? "user" : "environment")},
   width: { min: 1440, ideal: 1280, max: 3984 },
   height: { min: 1080, ideal: 720, max: 2988 },
   aspectRatio: 4/3,
   frameRate:{max: 30}
   };
 
-navigator.mediaDevices.getUserMedia({video: true
-}).then(mediaStream => {
+navigator.mediaDevices.getUserMedia(constraints).then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
     const track = mediaStream.getVideoTracks()[0];
@@ -66,8 +67,6 @@ navigator.mediaDevices.getUserMedia({video: true
   .catch(error =>{
     if (error.toString().includes('Permission denied')){
       alert('Camera APP requires your permission to access the camera. If you have accidentally Blocked the camera access you need to unblock it in your browser settings.')
-    } else {
-      alert('Error starting camera. Please allow camera access'+ error)
     }
   });
 
@@ -106,107 +105,9 @@ fullscreenButton.onclick = function() {
   }
 //************************************* SPIRIT LEVEL *****************************************
 
-// var canTakePhoto = false;
-//  function handleOrientation(event) {
-//   var absolute = event.absolute;
-//   var alpha    = event.alpha;
-//   var beta     = event.beta;
-//   var gamma    = event.gamma;
-//   console.log('ho',beta, alpha, gamma);
- 
-//   if (beta===null && gamma===null) return;
- 
-//   if (isLandscape && beta && CameraView && takingPhoto) $("#cameraLine").show();
-//   if (isLandscape && gamma && CameraView && takingPhoto) circle.style.display = 'inline';
-//   //$('#dev').text(gamma)
- 
-//   function getGammaDev(gamma){
-//     //if (gamma<=-85) return 0;
-//     //if (gamma>85) return 0;
-//     if (gamma<0) return 90+gamma;
-//     if (gamma>0) return -(90-gamma);
-//   }
-//   circle.style.top = 'calc(50% - '+(40+getGammaDev(gamma))+'px)';
- 
- 
-//   if(beta <=1 && beta >= -1)
-//   {
-//     line.style.backgroundColor = 'green';
-//   }
-//   else
-//   {
-//     line.style.backgroundColor = 'red';
-//   }
-//   if(beta <=1 && beta >= -1 && getGammaDev(gamma) < 10){
-//     $("#takePhoto").removeAttr('disabled');
-//     //$('#dev').text('enabl5x'+canTakePhoto);
-//     if (!OperatingSystem.iOS() && !canTakePhoto && CameraView && takingPhoto) window.navigator.vibrate(50);
-//     canTakePhoto = true;
-//   } else {
-//     $("#takePhoto").attr("disabled", true);
-//     //$('#dev').text('disabl5x'+canTakePhoto);
-//     if (!OperatingSystem.iOS() && canTakePhoto && CameraView && takingPhoto) window.navigator.vibrate(50);
-//     canTakePhoto = false;
-//   }
-//   line.style.transform = 'rotate(' + (-beta).toString() + 'deg)';
-//   permissionForOrientation = 'none'
-// }
- 
-// var permissionForOrientation = 'none';
-//    // when page loads checks if the device requires user to to enable motion sensors, If they do then display the dialog
-// if ( window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === 'function' ){
-//   permissionForOrientation = 'need';
-//   /*
-//     console.log("permision needed");
-//     $('#cameraModal').show(); // show dialog asking user to enable motion sensor
-//     //$("#takePhoto").attr("disabled", true);//De-activate takephoto button until user agnet agreed
-//    $("#takePhoto").hide();
-//   acceptButton.onclick = function(){
-//   DeviceOrientationEvent.requestPermission()
-// .then(response => {
-//   if (response == 'granted') {
-//     window.addEventListener("deviceorientation", handleOrientation, true);
-//     $('#cameraModal').hide();
-//     //$("#takePhoto").removeAttr('disabled');
-// 	  $("#takePhoto").show();
-//   }
-// })
-// .catch(console.error)
-//   }
-//   */
-//  window.addEventListener("deviceorientation", handleOrientation, true);
-// } else {
-//   // non iOS 13+
-//   window.addEventListener("deviceorientation", handleOrientation, true);
-// }
- 
-// setTimeout(function() {
-//   if (permissionForOrientation==='need'){
-//     alert('need perm3')
-//     $('#cameraModal').show(); // show dialog asking user to enable motion sensor
-//     //$("#takePhoto").attr("disabled", true);//De-activate takephoto button until user agnet agreed
-//    $("#takePhoto").hide();
- 
-//   acceptButton.onclick = function(){
-//   DeviceOrientationEvent.requestPermission()
-// .then(response => {
-//   if (response == 'granted') {
-//     window.addEventListener("deviceorientation", handleOrientation, true);
-//     $('#cameraModal').hide();
-//     //$("#takePhoto").removeAttr('disabled');
-// 	  $("#takePhoto").show();
-//   }
-// })
-// .catch(console.error)
-//   }
-//   }
-// }, 2000);
-
 function handleOrientation(event) {
-  var absolute = event.absolute;
-  var alpha    = event.alpha;
   var beta     = event.beta;
-  var gamma    = event.gamma;
+
 
   if(beta <=1 && beta >= -1)
     {
@@ -222,6 +123,29 @@ function handleOrientation(event) {
     }
 }
 
+var permissionForOrientation = 'none';
+// when page loads checks if the device requires user to to enable motion sensors, If they do then display the dialog
+if ( window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === 'function' ){
+  permissionForOrientation = 'need';
+  console.log("permision needed");
+      $('#cameraModal').show(); // show dialog asking user to enable motion sensor
+      
+    acceptButton.onclick = function(){
+    DeviceOrientationEvent.requestPermission()
+  .then(response => {
+    if (response == 'granted') {
+      window.addEventListener("deviceorientation", handleOrientation, true);
+      $('#cameraModal').hide();
+    }
+  })
+  .catch(console.error)
+    }
+   
+   window.addEventListener("deviceorientation", handleOrientation, true);
+  } else {
+    // non iOS 13+
+    window.addEventListener("deviceorientation", handleOrientation, true);
+  }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
 
