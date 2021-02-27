@@ -47,7 +47,7 @@ var OperatingSystem = {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
-  video: { facingMode: (front? "user" : "environment")},
+  video: {facingMode: (front? "user" : "environment") },
   width: { min: 1440, ideal: 1280, max: 3984 },
   height: { min: 1080, ideal: 720, max: 2988 },
   aspectRatio: 4/3,
@@ -148,13 +148,13 @@ if ( window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermissi
   }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-
-  switchCameraButton.onclick = function() {
-    
+var front = false;
+  
+switchCameraButton.onclick = function() {    
+    front = !front;
     $('#switchCamera').attr('aria-pressed', true);
 
     }
-
 //************************************* TAKE A PICTURE *****************************************
 
 takePhotoButton.onclick = function () {
