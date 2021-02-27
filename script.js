@@ -29,8 +29,7 @@ $('#savePicture').hide();
 $('#Picture').hide();
 
 // Ask user to enable device motion to allow spirit line
-$('cameraLine').show();
-
+$('#cameraLine').show();
 
 //************************************* OPERATING SYSTEM DETECTION *****************************************
 var OperatingSystem = {
@@ -40,18 +39,22 @@ var OperatingSystem = {
 
   iOS: function() {
      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-     $("#fullscreen").hide();
   }
+  
 };
+
+if (OperatingSystem.iOS()) {
+  alert("Apple");
+}
 
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
   video: {facingMode: (front? "user" : "environment") },
-  width: { min: 1440, ideal: 1280, max: 3984 },
-  height: { min: 1080, ideal: 720, max: 2988 },
-  aspectRatio: 4/3,
-  frameRate:{max: 30}
+  width: { min: 640, ideal: 1920, max: 1920 },
+    height: { min: 400, ideal: 1080 },
+    aspectRatio: 1.777777778,
+    frameRate: { max: 30 },
   };
 
 navigator.mediaDevices.getUserMedia(constraints).then(mediaStream => {
