@@ -156,13 +156,12 @@ var front = false;
  switchCameraButton.onclick = function() {    
      front = !front;
     }
-    //document.getElementById('flip-button').onclick = function() { front = !front; };
 
-    if (constraints.video.facingMode) {
-      if (constraints.video.facingMode === 'environment') {
-        switchCameraButton.setAttribute('aria-pressed', true);
+    if (front = 'user') {
+      if (constraints.video.facingMode.front == 'environment') {
+        $('#switchCamera').attr('aria-pressed', false);
       } else {
-        switchCameraButton.setAttribute('aria-pressed', false);
+        $('#switchCamera').attr('aria-pressed', true);
       }
     }
 //************************************* TAKE A PICTURE *****************************************
@@ -220,7 +219,12 @@ retakeButton.onclick = function() {
 
   $("#takePhoto").show();
   $("#switchCamera").show();
-  $("#fullscreen").show();
+  if (OperatingSystem.iOS()) {
+    $("#fullscreen").hide();
+  }else{
+    $("#fullscreen").show();
+  }
+
   $('video').show();
 
   //Hide the followings;
