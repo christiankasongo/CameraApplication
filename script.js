@@ -47,14 +47,14 @@ var OperatingSystem = {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
+  video: true,
   width: { min: 1440, ideal: 1280, max: 3984 },
   height: { min: 1080, ideal: 720, max: 2988 },
   aspectRatio: 4/3,
   frameRate:{max: 30}
   };
 
-navigator.mediaDevices.getUserMedia({video: true
-}).then(mediaStream => {
+navigator.mediaDevices.getUserMedia(constraints).then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
     const track = mediaStream.getVideoTracks()[0];

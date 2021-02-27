@@ -23,10 +23,10 @@ body {
   background-color: #111;
 }
 
-video {
+/* video {
   object-fit: cover;
   z-index: 0;
-}
+} */
 
 /*Camera contorl styling*/
 #camera_controls {
