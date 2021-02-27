@@ -50,7 +50,7 @@ if (OperatingSystem.iOS()) {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
-  video: { facingMode: (front? "user" : "environment") },
+  video: { facingMode: currentFacingMode},
   width: { min: 1440, ideal: 1280, max: 3984 },
   height: { min: 1080, ideal: 720, max: 2988 },
   aspectRatio: 4/3,
@@ -151,19 +151,69 @@ fullscreenButton.onclick = function() {
 //   }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-var front = false;
+// var front = false;
   
- switchCameraButton.onclick = function() {    
-     front = !front;
-    }
+//  switchCameraButton.onclick = function() {    
+//      front = !front;
+//     }
 
-    if (front = 'user') {
-      if (constraints.video.facingMode.front == 'environment') {
-        $('#switchCamera').attr('aria-pressed', false);
-      } else {
-        $('#switchCamera').attr('aria-pressed', true);
-      }
-    }
+//     if (front = 'user') {
+//       if (constraints.video.facingMode.front == 'environment') {
+//         $('#switchCamera').attr('aria-pressed', false);
+//       } else {
+//         $('#switchCamera').attr('aria-pressed', true);
+//       }
+//     }
+var currentFacingMode = 'environment';
+var amountOfCameras = 0;
+
+function deviceCount() {
+  return new Promise(function (resolve) {
+    var videoInCount = 0;
+
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(function (devices) {
+        devices.forEach(function (device) {
+          if (device.kind === 'video') {
+            device.kind = 'videoinput';
+          }
+
+          if (device.kind === 'videoinput') {
+            videoInCount++;
+            console.log('videocam: ' + device.label);
+          }
+        });
+
+        resolve(videoInCount);
+      })
+      .catch(function (err) {
+        console.log(err.name + ': ' + err.message);
+        resolve(0);
+      });
+  });
+}
+
+ // -- switch camera part
+ if (amountOfCameras > 1) {
+  switchCameraButton.style.display = 'block';
+
+  switchCameraButton.addEventListener('click', function () {
+    if (currentFacingMode === 'environment') currentFacingMode = 'user';
+    else currentFacingMode = 'environment';
+
+    initCameraStream();
+  });
+}
+
+if (constraints.video.facingMode) {
+  if (constraints.video.facingMode === 'environment') {
+    switchCameraButton.setAttribute('aria-pressed', true);
+  } else {
+    switchCameraButton.setAttribute('aria-pressed', false);
+  }
+}
+
 //************************************* TAKE A PICTURE *****************************************
 
 takePhotoButton.onclick = function () {
