@@ -40,6 +40,7 @@ var OperatingSystem = {
 
   iOS: function() {
      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+     $("#fullscreen").hide();
   }
 };
 
