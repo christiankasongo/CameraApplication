@@ -66,8 +66,6 @@ navigator.mediaDevices.getUserMedia({video: true
   .catch(error =>{
     if (error.toString().includes('Permission denied')){
       alert('Camera APP requires your permission to access the camera. If you have accidentally Blocked the camera access you need to unblock it in your browser settings.')
-    } else {
-      alert('Error starting camera. Please allow camera access'+ error)
     }
   });
 
@@ -107,10 +105,8 @@ fullscreenButton.onclick = function() {
 //************************************* SPIRIT LEVEL *****************************************
 
 function handleOrientation(event) {
-  var absolute = event.absolute;
-  var alpha    = event.alpha;
   var beta     = event.beta;
-  var gamma    = event.gamma;
+
 
   if(beta <=1 && beta >= -1)
     {
