@@ -14,7 +14,7 @@ var retakeButton = document.querySelector('#retake');
 var savePictureButton = document.querySelector('#savePicture');
 var modal = document.querySelector('#cameraModal');
 var acceptButton = document.querySelector('#cameraAccept');
-var line = document.getElementById('#cameraLine');
+// var line = document.getElementById('#cameraLine');
 var picture = document.getElementById('#Picture');
 
 // img.style.visibility = 'hidden';
@@ -108,47 +108,47 @@ fullscreenButton.onclick = function() {
   }
 //************************************* SPIRIT LEVEL *****************************************
 
-function handleOrientation(event) {
-  var beta     = event.beta;
+// function handleOrientation(event) {
+//   var beta     = event.beta;
 
 
-  if(beta <=1 && beta >= -1)
-    {
-      line.style.backgroundColor = 'green';
-    }
-    else
-    {
-      line.style.backgroundColor = 'red';
-    }
+//   if(beta <=1 && beta >= -1)
+//     {
+//       line.style.backgroundColor = 'green';
+//     }
+//     else
+//     {
+//       line.style.backgroundColor = 'red';
+//     }
 
-    if (permissionForOrientation==='need'){
-      $('#cameraModal').show(); // show dialog asking user to enable motion sensor
-    }
-}
+//     if (permissionForOrientation==='need'){
+//       $('#cameraModal').show(); // show dialog asking user to enable motion sensor
+//     }
+// }
 
-var permissionForOrientation = 'none';
-// when page loads checks if the device requires user to to enable motion sensors, If they do then display the dialog
-if ( window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === 'function' ){
-  permissionForOrientation = 'need';
-  console.log("permision needed");
-      $('#cameraModal').show(); // show dialog asking user to enable motion sensor
+// var permissionForOrientation = 'none';
+// // when page loads checks if the device requires user to to enable motion sensors, If they do then display the dialog
+// if ( window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === 'function' ){
+//   permissionForOrientation = 'need';
+//   console.log("permision needed");
+//       $('#cameraModal').show(); // show dialog asking user to enable motion sensor
       
-    acceptButton.onclick = function(){
-    DeviceOrientationEvent.requestPermission()
-  .then(response => {
-    if (response == 'granted') {
-      window.addEventListener("deviceorientation", handleOrientation, true);
-      $('#cameraModal').hide();
-    }
-  })
-  .catch(console.error)
-    }
+//     acceptButton.onclick = function(){
+//     DeviceOrientationEvent.requestPermission()
+//   .then(response => {
+//     if (response == 'granted') {
+//       window.addEventListener("deviceorientation", handleOrientation, true);
+//       $('#cameraModal').hide();
+//     }
+//   })
+//   .catch(console.error)
+//     }
    
-   window.addEventListener("deviceorientation", handleOrientation, true);
-  } else {
-    // non iOS 13+
-    window.addEventListener("deviceorientation", handleOrientation, true);
-  }
+//    window.addEventListener("deviceorientation", handleOrientation, true);
+//   } else {
+//     // non iOS 13+
+//     window.addEventListener("deviceorientation", handleOrientation, true);
+//   }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
 // var front = false;
