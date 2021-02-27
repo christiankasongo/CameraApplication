@@ -44,7 +44,7 @@ var OperatingSystem = {
 };
 
 if (OperatingSystem.iOS()) {
-  alert("Apple");
+  $("#fullscreen").hide();
 }
 
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
@@ -154,8 +154,11 @@ if ( window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermissi
 var front = false;
   
 switchCameraButton.onclick = function() {    
-    front = !front;
-    $('#switchCamera').attr('aria-pressed', true);
+    if(front = !front){
+       $('#switchCamera').attr('aria-pressed', true);
+    }else{
+      $('#switchCamera').attr('aria-pressed', false);
+    }
 
     }
 //************************************* TAKE A PICTURE *****************************************
