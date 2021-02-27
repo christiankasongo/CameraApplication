@@ -50,11 +50,11 @@ if (OperatingSystem.iOS()) {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
-  video: {facingMode: (front? "user" : "environment") },
-  width: { min: 640, ideal: 1920, max: 1920 },
-    height: { min: 400, ideal: 1080 },
-    aspectRatio: 1.777777778,
-    frameRate: { max: 30 },
+  video: {facingMode: currentFacingMode},
+  width: { min: 1440, ideal: 1280, max: 3984 },
+  height: { min: 1080, ideal: 720, max: 2988 },
+  aspectRatio: 4/3,
+  frameRate:{max: 30}
   };
 
 navigator.mediaDevices.getUserMedia(constraints).then(mediaStream => {
@@ -151,15 +151,36 @@ if ( window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermissi
   }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-var front = false;
+// var front = false;
   
-switchCameraButton.onclick = function() {    
-    if(front = !front){
-       $('#switchCamera').attr('aria-pressed', true);
-    }else{
-      $('#switchCamera').attr('aria-pressed', false);
-    }
+// switchCameraButton.onclick = function() {    
+//     if(front = !front){
+//        $('#switchCamera').attr('aria-pressed', true);
+//     }else{
+//       $('#switchCamera').attr('aria-pressed', fase);
+//     }
 
+//     }
+var currentFacingMode = 'environment';
+
+    // -- switch camera part
+  if (amountOfCameras > 1) {
+    switchCameraButton.style.display = 'block';
+
+    switchCameraButton.addEventListener('click', function () {
+      if (currentFacingMode === 'environment') currentFacingMode = 'user';
+      else currentFacingMode = 'environment';
+
+      initCameraStream();
+    });
+  }
+
+    if (constraints.video.facingMode) {
+      if (constraints.video.facingMode === 'environment') {
+        switchCameraButton.setAttribute('aria-pressed', true);
+      } else {
+        switchCameraButton.setAttribute('aria-pressed', false);
+      }
     }
 //************************************* TAKE A PICTURE *****************************************
 
