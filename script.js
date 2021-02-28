@@ -15,7 +15,7 @@ var savePictureButton = document.querySelector('#savePicture');
 // var modal = document.querySelector('#cameraModal');
 // var acceptButton = document.querySelector('#cameraAccept');
 // var line = document.getElementById('#cameraLine');
-var picture = document.getElementById('#Picture');
+var picture = document.getElementById('Picture');
 
 // img.style.visibility = 'hidden';
 
@@ -56,7 +56,7 @@ const constraints = {
   frameRate:{max: 30}
   };
 
-  navigator.mediaDevices.getUserMedia({video:{pan: true, zoom: true, facingMode: currentFacingMode}})
+  navigator.mediaDevices.getUserMedia({video:{pan: true, zoom: true, facingMode:{ facingMode: (front? "user" : "environment") } }})
   .then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
@@ -106,65 +106,24 @@ fullscreenButton.onclick = function() {
 }
 
   }
-//************************************* SPIRIT LEVEL *****************************************
+//************************************* FRONT/REAR CAMERA TOGGLE *****************************************
+// var currentFacingMode = 'environment';
 
-// function handleOrientation(event) {
-//   var beta     = event.beta;
-
-
-//   if(beta <=1 && beta >= -1)
-//     {
-//       line.style.backgroundColor = 'green';
-//     }
-//     else
-//     {
-//       line.style.backgroundColor = 'red';
-//     }
-
-//     if (permissionForOrientation==='need'){
-//       $('#cameraModal').show(); // show dialog asking user to enable motion sensor
-//     }
+// switchCameraButton.onclick = function () {
+// if (currentFacingMode === 'environment') currentFacingMode = 'user';
+// else currentFacingMode = 'environment';
 // }
 
-// var permissionForOrientation = 'none';
-// // when page loads checks if the device requires user to to enable motion sensors, If they do then display the dialog
-// if ( window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === 'function' ){
-//   permissionForOrientation = 'need';
-//   console.log("permision needed");
-//       $('#cameraModal').show(); // show dialog asking user to enable motion sensor
-      
-//     acceptButton.onclick = function(){
-//     DeviceOrientationEvent.requestPermission()
-//   .then(response => {
-//     if (response == 'granted') {
-//       window.addEventListener("deviceorientation", handleOrientation, true);
-//       $('#cameraModal').hide();
-//     }
-//   })
-//   .catch(console.error)
-//     }
-   
-//    window.addEventListener("deviceorientation", handleOrientation, true);
+// if (constraints.video.facingMode) {
+//   if (constraints.video.facingMode === 'environment') {
+//     switchCameraButton.setAttribute('aria-pressed', true);
 //   } else {
-//     // non iOS 13+
-//     window.addEventListener("deviceorientation", handleOrientation, true);
+//     switchCameraButton.setAttribute('aria-pressed', false);
 //   }
+// }
 
-//************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-var currentFacingMode = 'environment';
-
-switchCameraButton.onclick = function () {
-if (currentFacingMode === 'environment') currentFacingMode = 'user';
-else currentFacingMode = 'environment';
-}
-
-if (constraints.video.facingMode) {
-  if (constraints.video.facingMode === 'environment') {
-    switchCameraButton.setAttribute('aria-pressed', true);
-  } else {
-    switchCameraButton.setAttribute('aria-pressed', false);
-  }
-}
+var front = false;
+document.getElementById('switchCameraButton').onclick = function() { front = !front; };
 //************************************* TAKE A PICTURE *****************************************
 
 takePhotoButton.onclick = function () {
