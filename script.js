@@ -50,7 +50,7 @@ if (OperatingSystem.iOS()) {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 const constraints = {
   width: { min: 1280, ideal: 1920, max: 1920 },
-  height: { min: 720, ideal: 1080 },
+  // height: { min: 720, ideal: 1080 },
   aspectRatio: 1.777777778,
   frameRate:{max: 30}
   };
