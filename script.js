@@ -50,13 +50,13 @@ if (OperatingSystem.iOS()) {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
-  width: { min: 1440, ideal: 1280, max: 3984 },
-  height: { min: 1080, ideal: 720, max: 2988 },
-  aspectRatio: 4/3,
+  width: 1920,
+  height: 1080,
+  aspectRatio: 1.777777778,
   frameRate:{max: 30}
   };
 
-  navigator.mediaDevices.getUserMedia({video:{pan:true, zoom:true, facingMode:{exact:"environment"}}})
+  navigator.mediaDevices.getUserMedia({video:{pan:true, zoom:true, facingMode:{exact:'user'}}})
   .then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
@@ -167,7 +167,7 @@ fullscreenButton.onclick = function() {
 //     }
 
 switchCameraButton.onclick = function () {
-  
+
 }
 
 //************************************* TAKE A PICTURE *****************************************
