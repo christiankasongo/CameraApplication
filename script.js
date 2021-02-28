@@ -56,7 +56,7 @@ const constraints = {
   frameRate:{max: 30}
   };
 
-  navigator.mediaDevices.getUserMedia({video:{pan:true, zoom:true, facingMode:{exact:"frontorback"}}})
+  navigator.mediaDevices.getUserMedia({video:{pan:true, zoom:true, facingMode:{exact:"user"}}})
   .then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
@@ -154,6 +154,8 @@ fullscreenButton.onclick = function() {
 var frontorback="user"
 
 switchCameraButton.onclick = function () {
+  
+  
   $('#fullscreen').attr('aria-pressed', true);
 }
 
