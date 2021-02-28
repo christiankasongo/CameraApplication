@@ -157,8 +157,8 @@ button {
   }
 
   /**Line canvas**/
-#cameraLine {
-  max-width:85%;
+/* #cameraLine { */
+  /* max-width:85%;
   height: 5px;
   top: 0;
   left: 0;
@@ -166,26 +166,18 @@ button {
   bottom: 0;
   position: fixed;
   top: 90%;
-  font-size:0px;
+  font-size:0px; */
   /*left: calc(50vw - 100vmax);*/
   /*transform: rotate(360deg);*/
   /*transform-origin: centre point*/
-  z-index:10;
-  opacity:0.5;
-  /* background-color:red; */
-  }
- 
+  /* z-index:10;
+  opacity:0.5; 
+}*/
+  
 
-
-/* Picture taken by user  */
-
-  #output {
-    max-width: 100%;
-    height: auto;
-    }
-    
+/* Picture taken by user  */   
     #Picture{
-    position: fixed;
+    /* position: fixed; */
     max-width: 100%;
     height: auto;
     }
