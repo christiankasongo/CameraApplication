@@ -56,7 +56,7 @@ const constraints = {
   frameRate:{max: 30}
   };
 
-  navigator.mediaDevices.getUserMedia({video:{pan:true, zoom:true, facingMode:(front? "user" : "environment")}})
+  navigator.mediaDevices.getUserMedia({video:{pan:true, zoom:true, facingMode:{exact:"environment"}}})
   .then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
@@ -151,24 +151,9 @@ fullscreenButton.onclick = function() {
 //   }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-var front = false;
-  
-document.getElementById('#switchCamera').onclick = function() { front = !front; };
-// if(front =! "environment"){
-//   $('#switchCamera').attr('aria-pressed', true);
-//   alert("front");
-// }else{
-//   $('#switchCamera').attr('aria-pressed', false);
-//   alert("back");
-// }
-//  switchCameraButton.onclick = function() {    
-//      front = !front;
-//      $('#switchCamera').attr('aria-pressed', true);
-//     }
-
-// switchCameraButton.onclick = function () {
-//   $('#fullscreen').attr('aria-pressed', true);
-// }
+switchCameraButton.onclick = function () {
+  $('#fullscreen').attr('aria-pressed', true);
+}
 
 //************************************* TAKE A PICTURE *****************************************
 
