@@ -151,14 +151,20 @@ fullscreenButton.onclick = function() {
 //   }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-var currentFacingMode;
+var currentFacingMode = 'environment';
 
 switchCameraButton.onclick = function () {
 if (currentFacingMode === 'environment') currentFacingMode = 'user';
 else currentFacingMode = 'environment';
-
 }
 
+if (constraints.video.facingMode) {
+  if (constraints.video.facingMode === 'environment') {
+    switchCameraButton.setAttribute('aria-pressed', true);
+  } else {
+    switchCameraButton.setAttribute('aria-pressed', false);
+  }
+}
 //************************************* TAKE A PICTURE *****************************************
 
 takePhotoButton.onclick = function () {
