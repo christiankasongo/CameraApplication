@@ -12,8 +12,8 @@ var fullscreenButton = document.querySelector('#fullscreen');
 var switchCameraButton = document.querySelector('#switchCamera');
 var retakeButton = document.querySelector('#retake');
 var savePictureButton = document.querySelector('#savePicture');
-var modal = document.querySelector('#cameraModal');
-var acceptButton = document.querySelector('#cameraAccept');
+// var modal = document.querySelector('#cameraModal');
+// var acceptButton = document.querySelector('#cameraAccept');
 // var line = document.getElementById('#cameraLine');
 var picture = document.getElementById('#Picture');
 
@@ -50,14 +50,13 @@ if (OperatingSystem.iOS()) {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
-  video: {facingMode: {exact: 'environment'}},
   width: { min: 1440, ideal: 1280, max: 3984 },
   height: { min: 1080, ideal: 720, max: 2988 },
   aspectRatio: 4/3,
   frameRate:{max: 30}
   };
 
-  navigator.mediaDevices.getUserMedia(constraints)
+  navigator.mediaDevices.getUserMedia({video:{pan:true, zoom:true, facingMode:{exact:"environment"}}})
   .then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
@@ -166,6 +165,10 @@ fullscreenButton.onclick = function() {
 //      front = !front;
 //      $('#switchCamera').attr('aria-pressed', true);
 //     }
+
+switchCameraButton.onclick = function () {
+  
+}
 
 //************************************* TAKE A PICTURE *****************************************
 
