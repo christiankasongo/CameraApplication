@@ -4,14 +4,6 @@ body {
   background: rgb(0, 0, 0);
 }
 
-
-#video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
 #camera_container {
   position: fixed;
   top: 0;
