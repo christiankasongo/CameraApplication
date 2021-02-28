@@ -50,7 +50,7 @@ if (OperatingSystem.iOS()) {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
-  video: {facingMode: {exact: 'user'}},
+  video: {facingMode: {exact: 'environment'}},
   width: { min: 1440, ideal: 1280, max: 3984 },
   height: { min: 1080, ideal: 720, max: 2988 },
   aspectRatio: 4/3,
