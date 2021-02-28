@@ -4,6 +4,7 @@ $(document).ready(function(){
 // *******************************************************************************************************
 
 var imageCapture;
+var currentFacingMode = 'environment';
 
 var img = document.querySelector('img');
 var video = document.querySelector('video');
@@ -56,7 +57,7 @@ const constraints = {
   frameRate:{max: 30}
   };
 
-  navigator.mediaDevices.getUserMedia({video:{pan: true, zoom: true, facingMode:{ facingMode: (front? "user" : "environment") } }})
+  navigator.mediaDevices.getUserMedia({video:{pan: true, zoom: true, facingMode: currentFacingMode }})
   .then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
@@ -107,23 +108,36 @@ fullscreenButton.onclick = function() {
 
   }
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-// var currentFacingMode = 'environment';
+  switchCameraButton.onclick = function () {
+    if (currentFacingMode === 'environment') currentFacingMode = 'user';
+    else currentFacingMode = 'environment';
 
-// switchCameraButton.onclick = function () {
-// if (currentFacingMode === 'environment') currentFacingMode = 'user';
-// else currentFacingMode = 'environment';
-// }
+    initCameraStream();
+  }
 
-// if (constraints.video.facingMode) {
-//   if (constraints.video.facingMode === 'environment') {
-//     switchCameraButton.setAttribute('aria-pressed', true);
-//   } else {
-//     switchCameraButton.setAttribute('aria-pressed', false);
-//   }
-// }
+  function initCameraStream() {
+    // stop any active streams in the window
+    if (video.srcObject) {
+      video.srcObject.getTracks().forEach(function (track) {
+        console.log(track);
+        track.stop();
+      });
+    }
+  }
 
-var front = false;
-document.getElementById('switchCameraButton').onclick = function() { front = !front; };
+  function handleSuccess(stream) {
+    mediaStream = stream; // make stream available to browser console
+    video.srcObject = stream;
+
+    if (constraints.video.facingMode) {
+      if (constraints.video.facingMode === 'environment') {
+        switchCameraButton.setAttribute('aria-pressed', true);
+      } else {
+        switchCameraButton.setAttribute('aria-pressed', false);
+      }
+    }
+  }
+
 //************************************* TAKE A PICTURE *****************************************
 
 takePhotoButton.onclick = function () {
