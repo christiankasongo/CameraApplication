@@ -151,7 +151,7 @@ fullscreenButton.onclick = function() {
 //   }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-var frontorback="environment"
+var frontorback="user"
 
 switchCameraButton.onclick = function () {
   $('#fullscreen').attr('aria-pressed', true);
