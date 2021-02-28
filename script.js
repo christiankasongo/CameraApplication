@@ -50,14 +50,15 @@ if (OperatingSystem.iOS()) {
 //***************************** OPEN THE CAMERA BY ASKING USER PERMISSION(APPLE DEVICE) AND APPLY VIDEO STREAM SETTINGS ***********************************
 
 const constraints = {
-  video: { facingMode: (front? "user" : "environment")},
+  video: {facingMode: {exact: 'environment'}},
   width: { min: 1440, ideal: 1280, max: 3984 },
   height: { min: 1080, ideal: 720, max: 2988 },
   aspectRatio: 4/3,
   frameRate:{max: 30}
   };
 
-navigator.mediaDevices.getUserMedia(constraints).then(mediaStream => {
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(mediaStream => {
     document.querySelector('video').srcObject = mediaStream;
 
     const track = mediaStream.getVideoTracks()[0];
@@ -151,16 +152,16 @@ fullscreenButton.onclick = function() {
 //   }
 
 //************************************* FRONT/REAR CAMERA TOGGLE *****************************************
-var front = false;
+// var front = false;
   
-document.getElementById('#switchCamera').onclick = function() { front = !front; };
-if(front =! "environment"){
-  $('#switchCamera').attr('aria-pressed', true);
-  alert("front");
-}else{
-  $('#switchCamera').attr('aria-pressed', false);
-  alert("back");
-}
+// document.getElementById('#switchCamera').onclick = function() { front = !front; };
+// if(front =! "environment"){
+//   $('#switchCamera').attr('aria-pressed', true);
+//   alert("front");
+// }else{
+//   $('#switchCamera').attr('aria-pressed', false);
+//   alert("back");
+// }
 //  switchCameraButton.onclick = function() {    
 //      front = !front;
 //      $('#switchCamera').attr('aria-pressed', true);
